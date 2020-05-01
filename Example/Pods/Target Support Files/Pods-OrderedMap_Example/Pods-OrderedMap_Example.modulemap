@@ -1,0 +1,6 @@
+framework module Pods_OrderedMap_Example {
+  umbrella header "Pods-OrderedMap_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

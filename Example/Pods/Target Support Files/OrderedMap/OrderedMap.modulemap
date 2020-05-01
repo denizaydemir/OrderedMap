@@ -1,0 +1,6 @@
+framework module OrderedMap {
+  umbrella header "OrderedMap-umbrella.h"
+
+  export *
+  module * { export * }
+}

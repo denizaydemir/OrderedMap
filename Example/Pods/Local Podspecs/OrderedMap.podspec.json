@@ -1,0 +1,22 @@
+{
+  "name": "OrderedMap",
+  "version": "0.1.0",
+  "summary": "A short description of OrderedMap.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/denizaydemir/OrderedMap",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "denizaydemir": "daydemir@ku.edu.tr"
+  },
+  "source": {
+    "git": "https://github.com/denizaydemir/OrderedMap.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "OrderedMap/Classes/**/*"
+}

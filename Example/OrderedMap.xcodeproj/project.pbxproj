@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		217DC1B6C9FC7AC4151091EC /* OrderedMap.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = OrderedMap.podspec; path = ../OrderedMap.podspec; sourceTree = "<group>"; };
+		217DC1B6C9FC7AC4151091EC /* OrderedMap.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = OrderedMap.podspec; path = ../OrderedMap.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* OrderedMap_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrderedMap_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,10 +40,10 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		62AD7DC031BE29DB8978C3F2 /* Pods-OrderedMap_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrderedMap_Tests.debug.xcconfig"; path = "Target Support Files/Pods-OrderedMap_Tests/Pods-OrderedMap_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		78DD186B2CC110E99AE0A523 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		78DD186B2CC110E99AE0A523 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		A059E6AAE3137D1090C7E1A7 /* Pods_OrderedMap_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OrderedMap_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3222E3D0610FF6FAD6844B2 /* Pods-OrderedMap_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrderedMap_Example.release.xcconfig"; path = "Target Support Files/Pods-OrderedMap_Example/Pods-OrderedMap_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B1FD5A57C4B25220B5A59492 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		B1FD5A57C4B25220B5A59492 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C86490ED345DBED8C55308C2 /* Pods-OrderedMap_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrderedMap_Example.debug.xcconfig"; path = "Target Support Files/Pods-OrderedMap_Example/Pods-OrderedMap_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E900F2A7E623F0456111024F /* Pods-OrderedMap_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrderedMap_Tests.release.xcconfig"; path = "Target Support Files/Pods-OrderedMap_Tests/Pods-OrderedMap_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E94C8F8653B21D91C4700A55 /* Pods_OrderedMap_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OrderedMap_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +156,6 @@
 				62AD7DC031BE29DB8978C3F2 /* Pods-OrderedMap_Tests.debug.xcconfig */,
 				E900F2A7E623F0456111024F /* Pods-OrderedMap_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -227,6 +226,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);

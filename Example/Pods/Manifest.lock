@@ -1,0 +1,16 @@
+PODS:
+  - OrderedMap (0.1.0)
+
+DEPENDENCIES:
+  - OrderedMap (from `../`)
+
+EXTERNAL SOURCES:
+  OrderedMap:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  OrderedMap: 5224ab09c5a9c87630ed3c8c23867350c8221fa8
+
+PODFILE CHECKSUM: 8397f321f2a765f904e451357d99bb3c9d2ea8be
+
+COCOAPODS: 1.9.1
