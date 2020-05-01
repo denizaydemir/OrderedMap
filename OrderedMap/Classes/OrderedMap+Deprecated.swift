@@ -1,4 +1,4 @@
-extension OrderedDictionary {
+extension OrderedMap {
     
     @available(*, deprecated, message: "Please use init(values:uniquelyKeyedBy:).", renamed: "init(values:uniquelyKeyedBy:)")
     public init<S: Sequence>(

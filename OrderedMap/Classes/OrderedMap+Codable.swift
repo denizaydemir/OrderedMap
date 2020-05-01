@@ -1,6 +1,6 @@
 #if swift(>=4.1)
 
-extension OrderedDictionary: Encodable where Key: Encodable, Value: Encodable {
+extension OrderedMap: Encodable where Key: Encodable, Value: Encodable {
     
     /// __inheritdoc__
     public func encode(to encoder: Encoder) throws {
@@ -15,7 +15,7 @@ extension OrderedDictionary: Encodable where Key: Encodable, Value: Encodable {
     
 }
 
-extension OrderedDictionary: Decodable where Key: Decodable, Value: Decodable {
+extension OrderedMap: Decodable where Key: Decodable, Value: Decodable {
     
     /// __inheritdoc__
     public init(from decoder: Decoder) throws {
@@ -37,12 +37,12 @@ extension OrderedDictionary: Decodable where Key: Decodable, Value: Decodable {
     
 #else
 
-extension OrderedDictionary: Encodable {
+extension OrderedMap: Encodable {
 
     /// __inheritdoc__
     public func encode(to encoder: Encoder) throws {
         // Since Swift 4.0 lacks the protocol conditional conformance support, we have to make the
-        // whole OrderedDictionary type conform to Encodable and assert that the key and value
+        // whole OrderedMap type conform to Encodable and assert that the key and value
         // types conform to Encodable. Furthermore, we leverage a trick of super encoders to be
         // able to encode objects without knowing their exact types. This trick was used in the
         // standard library for encoding/decoding Dictionary before Swift 4.1.
@@ -73,12 +73,12 @@ extension OrderedDictionary: Encodable {
 
 }
 
-extension OrderedDictionary: Decodable {
+extension OrderedMap: Decodable {
 
     /// __inheritdoc__
     public init(from decoder: Decoder) throws {
         // Since Swift 4.0 lacks the protocol conditional conformance support, we have to make the
-        // whole OrderedDictionary type conform to Decodable and assert that the key and value
+        // whole OrderedMap type conform to Decodable and assert that the key and value
         // types conform to Decodable. Furthermore, we leverage a trick of super decoders to be
         // able to decode objects without knowing their exact types. This trick was used in the
         // standard library for encoding/decoding Dictionary before Swift 4.1.

@@ -3,7 +3,7 @@
 /// Same as in a dictionary all keys in the collection are unique and have an associated value.
 /// Same as in an array, all key-value pairs (elements) are kept sorted and accessible by
 /// a zero-based integer index.
-public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
+public struct OrderedMap<Key: Hashable, Value>: BidirectionalCollection {
 
     // ======================================================= //
     // MARK: - Type Aliases
@@ -20,8 +20,8 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     
     /// The type of the contiguous subrange of the ordered dictionary's elements.
     /// 
-    /// - SeeAlso: OrderedDictionarySlice
-    public typealias SubSequence = OrderedDictionarySlice<Key, Value>
+    /// - SeeAlso: OrderedMapSlice
+    public typealias SubSequence = OrderedMapSlice<Key, Value>
     
     // ======================================================= //
     // MARK: - Initialization
@@ -117,12 +117,12 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     // ======================================================= //
     
     /// A collection containing just the keys of the ordered dictionary in the correct order.
-    public var orderedKeys: OrderedDictionaryKeys<Key, Value> {
+    public var orderedKeys: OrderedMapKeys<Key, Value> {
         return self.lazy.map { $0.key }
     }
     
     /// A collection containing just the values of the ordered dictionary in the correct order.
-    public var orderedValues: OrderedDictionaryValues<Key, Value> {
+    public var orderedValues: OrderedMapValues<Key, Value> {
         return self.lazy.map { $0.value }
     }
     
@@ -131,7 +131,7 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     // ======================================================= //
     
     /// Converts itself to a common unsorted dictionary.
-    public var unorderedDictionary: Dictionary<Key, Value> {
+    public var unOrderedMap: Dictionary<Key, Value> {
         return _keysToValues
     }
     
@@ -175,7 +175,7 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     ///   must be valid indices of the ordered dictionary.
     /// - Returns: The slice view at the ordered dictionary in the specified subrange.
     public subscript(bounds: Range<Index>) -> SubSequence {
-        return OrderedDictionarySlice(base: self, bounds: bounds)
+        return OrderedMapSlice(base: self, bounds: bounds)
     }
     
     // ======================================================= //
@@ -288,7 +288,7 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     
     private func _unsafeValue(forKey key: Key) -> Value {
         let value = _keysToValues[key]
-        precondition(value != nil, "Inconsistency error occurred in OrderedDictionary")
+        precondition(value != nil, "Inconsistency error occurred in OrderedMap")
         return value!
     }
     
@@ -307,7 +307,7 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     ///
     /// - SeeAlso: update(:at:)
     public subscript(position: Index) -> Element {
-        precondition(indices.contains(position), "OrderedDictionary index is out of range")
+        precondition(indices.contains(position), "OrderedMap index is out of range")
         
         let key = _orderedKeys[position]
         let value = _unsafeValue(forKey: key)
@@ -390,8 +390,8 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     /// - SeeAlso: canInsert(at:)
     /// - SeeAlso: update(:at:)
     public mutating func insert(_ newElement: Element, at index: Index) {
-        precondition(canInsert(key: newElement.key), "Cannot insert duplicate key in OrderedDictionary")
-        precondition(canInsert(at: index), "Cannot insert at invalid index in OrderedDictionary")
+        precondition(canInsert(key: newElement.key), "Cannot insert duplicate key in OrderedMap")
+        precondition(canInsert(at: index), "Cannot insert at invalid index in OrderedMap")
         
         let (key, value) = newElement
         
@@ -433,7 +433,7 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
         
         precondition(
             _canUpdate(newElement, at: index, keyPresentAtIndex: &keyPresentAtIndex),
-            "OrderedDictionary update duplicates key"
+            "OrderedMap update duplicates key"
         )
         
         // Decompose the element
@@ -476,7 +476,7 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
         at index: Index,
         keyPresentAtIndex: inout Bool
     ) -> Bool {
-        precondition(indices.contains(index), "OrderedDictionary index is out of range")
+        precondition(indices.contains(index), "OrderedMap index is out of range")
         
         let currentIndexOfKey = self.index(forKey: newElement.key)
         
@@ -504,13 +504,13 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     
     /// Removes and returns the first key-value pair of the ordered dictionary.
     public mutating func removeFirst() -> Element {
-        precondition(!isEmpty, "Cannot remove key-value pairs from empty OrderedDictionary")
+        precondition(!isEmpty, "Cannot remove key-value pairs from empty OrderedMap")
         return remove(at: startIndex)!
     }
     
     /// Removes and returns the last key-value pair of the ordered dictionary.
     public mutating func removeLast() -> Element {
-        precondition(!isEmpty, "Cannot remove key-value pairs from empty OrderedDictionary")
+        precondition(!isEmpty, "Cannot remove key-value pairs from empty OrderedMap")
         return remove(at: index(before: endIndex))!
     }
     
@@ -539,7 +539,7 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
         let value = removeValue(forKey: key)!
         
         // Validate the new index.
-        precondition(canInsert(at: newIndex), "Cannot move to invalid index in OrderedDictionary")
+        precondition(canInsert(at: newIndex), "Cannot move to invalid index in OrderedMap")
 
         // Insert the element at the new index.
         insert((key: key, value: value), at: newIndex)
@@ -579,8 +579,8 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     /// - MutatingVariant: sort
     public func sorted(
         by areInIncreasingOrder: (Element, Element) throws -> Bool
-    ) rethrows -> OrderedDictionary<Key, Value> {
-        return OrderedDictionary(uniqueKeysWithValues: try _sortedElements(by: areInIncreasingOrder))
+    ) rethrows -> OrderedMap<Key, Value> {
+        return OrderedMap(uniqueKeysWithValues: try _sortedElements(by: areInIncreasingOrder))
     }
     
     private func _sortedElements(
@@ -597,8 +597,8 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     /// values transformed by the given closure by preserving the original order.
     public func mapValues<T>(
         _ transform: (Value) throws -> T
-    ) rethrows -> OrderedDictionary<Key, T> {
-        var result = OrderedDictionary<Key, T>()
+    ) rethrows -> OrderedMap<Key, T> {
+        var result = OrderedMap<Key, T>()
         
         for (key, value) in self {
             result[key] = try transform(value)
@@ -612,8 +612,8 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
     /// order.
     public func compactMapValues<T>(
         _ transform: (Value) throws -> T?
-    ) rethrows -> OrderedDictionary<Key, T> {
-        var result = OrderedDictionary<Key, T>()
+    ) rethrows -> OrderedMap<Key, T> {
+        var result = OrderedMap<Key, T>()
         
         for (key, value) in self {
             if let transformedValue = try transform(value) {
@@ -667,37 +667,37 @@ public struct OrderedDictionary<Key: Hashable, Value>: BidirectionalCollection {
 
 /// A view into an ordered dictionary whose indices are a subrange of the indices of the ordered
 /// dictionary.
-public typealias OrderedDictionarySlice<Key: Hashable, Value> = Slice<OrderedDictionary<Key, Value>>
+public typealias OrderedMapSlice<Key: Hashable, Value> = Slice<OrderedMap<Key, Value>>
 
 /// A collection containing the keys of the ordered dictionary.
 ///
 /// Under the hood this is a lazily evaluated bidirectional collection deriving the keys from
 /// the base ordered dictionary on-the-fly.
-public typealias OrderedDictionaryKeys<Key: Hashable, Value> = LazyMapCollection<OrderedDictionary<Key, Value>, Key>
+public typealias OrderedMapKeys<Key: Hashable, Value> = LazyMapCollection<OrderedMap<Key, Value>, Key>
 
 /// A collection containing the values of the ordered dictionary.
 ///
 /// Under the hood this is a lazily evaluated bidirectional collection deriving the values from
 /// the base ordered dictionary on-the-fly.
-public typealias OrderedDictionaryValues<Key: Hashable, Value> = LazyMapCollection<OrderedDictionary<Key, Value>, Value>
+public typealias OrderedMapValues<Key: Hashable, Value> = LazyMapCollection<OrderedMap<Key, Value>, Value>
 
 #else
 
 /// A view into an ordered dictionary whose indices are a subrange of the indices of the ordered
 /// dictionary.
-public typealias OrderedDictionarySlice<Key: Hashable, Value> = BidirectionalSlice<OrderedDictionary<Key, Value>>
+public typealias OrderedMapSlice<Key: Hashable, Value> = BidirectionalSlice<OrderedMap<Key, Value>>
 
 /// A collection containing the keys of the ordered dictionary.
 ///
 /// Under the hood this is a lazily evaluated bidirectional collection deriving the keys from
 /// the base ordered dictionary on-the-fly.
-public typealias OrderedDictionaryKeys<Key: Hashable, Value> = LazyMapBidirectionalCollection<OrderedDictionary<Key, Value>, Key>
+public typealias OrderedMapKeys<Key: Hashable, Value> = LazyMapBidirectionalCollection<OrderedMap<Key, Value>, Key>
     
 /// A collection containing the values of the ordered dictionary.
 ///
 /// Under the hood this is a lazily evaluated bidirectional collection deriving the values from
 /// the base ordered dictionary on-the-fly.
-public typealias OrderedDictionaryValues<Key: Hashable, Value> = LazyMapBidirectionalCollection<OrderedDictionary<Key, Value>, Value>
+public typealias OrderedMapValues<Key: Hashable, Value> = LazyMapBidirectionalCollection<OrderedMap<Key, Value>, Value>
     
 #endif
 
@@ -705,7 +705,7 @@ public typealias OrderedDictionaryValues<Key: Hashable, Value> = LazyMapBidirect
 // MARK: - Literals
 // ======================================================= //
 
-extension OrderedDictionary: ExpressibleByArrayLiteral {
+extension OrderedMap: ExpressibleByArrayLiteral {
     
     /// Initializes an ordered dictionary initialized from an array literal containing a list of
     /// key-value pairs. Every key in `elements` must be unique.
@@ -715,7 +715,7 @@ extension OrderedDictionary: ExpressibleByArrayLiteral {
     
 }
 
-extension OrderedDictionary: ExpressibleByDictionaryLiteral {
+extension OrderedMap: ExpressibleByDictionaryLiteral {
     
     /// Initializes an ordered dictionary initialized from a dictionary literal. Every key in
     /// `elements` must be unique.
@@ -734,15 +734,15 @@ extension OrderedDictionary: ExpressibleByDictionaryLiteral {
 
 #if swift(>=4.1)
 
-extension OrderedDictionary: Equatable where Value: Equatable {}
+extension OrderedMap: Equatable where Value: Equatable {}
 
 #endif
 
-extension OrderedDictionary where Value: Equatable {
+extension OrderedMap where Value: Equatable {
 
     /// Returns a Boolean value that indicates whether the two given ordered dictionaries with
     /// equatable values are equal.
-    public static func == (lhs: OrderedDictionary, rhs: OrderedDictionary) -> Bool {
+    public static func == (lhs: OrderedMap, rhs: OrderedMap) -> Bool {
         return lhs._orderedKeys == rhs._orderedKeys
             && lhs._keysToValues == rhs._keysToValues
     }
@@ -760,11 +760,11 @@ extension Dictionary {
     ///
     /// - Parameter areInIncreasingOrder: The sort function which compares the key-value pairs.
     /// - Returns: The ordered dictionary.
-    /// - SeeAlso: OrderedDictionary.init(unsorted:areInIncreasingOrder:)
+    /// - SeeAlso: OrderedMap.init(unsorted:areInIncreasingOrder:)
     public func sorted(
         by areInIncreasingOrder: (Element, Element) throws -> Bool
-    ) rethrows -> OrderedDictionary<Key, Value> {
-        return try OrderedDictionary(
+    ) rethrows -> OrderedMap<Key, Value> {
+        return try OrderedMap(
             unsorted: self,
             areInIncreasingOrder: areInIncreasingOrder
         )
